@@ -18,5 +18,15 @@ namespace MDLesson_1
             State = States.Free;
             
         }
+        public bool SetState(States state)
+        {
+            if (state == State)
+            {
+                return false;
+            }
+
+            State= state;
+            return true;
+        }
     }
 }
