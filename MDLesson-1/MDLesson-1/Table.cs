@@ -16,6 +16,7 @@ namespace MDLesson_1
         {
             Id = id;
             State = States.Free;
+            SeatsCount=new Random().Next(2,5);
             
         }
         public bool SetState(States state)
