@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace MDLesson_1
 {
-    public class Restraurant
+    public class Restaurant
     {
        private readonly List<Table>_tables=new List<Table>();
-        public Restraurant()
+        public Restaurant()
         {
-            for (int i=0; i <=10;i++)
+            for (ushort i=0; i <=10;i++)
             {
               _tables.Add(new Table(i));
             }

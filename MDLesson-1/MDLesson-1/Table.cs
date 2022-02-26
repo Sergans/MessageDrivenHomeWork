@@ -9,17 +9,17 @@ namespace MDLesson_1
   public  class Table
     {
         public int Id { get; set; }
-        public States State { get; set; }
+        public State State { get; set; }
 
         public int SeatsCount { get; set; }
         public Table(int id)
         {
             Id = id;
-            State = States.Free;
+            State = State.Free;
             SeatsCount=new Random().Next(2,5);
             
         }
-        public bool SetState(States state)
+        public bool SetState(State state)
         {
             if (state == State)
             {
