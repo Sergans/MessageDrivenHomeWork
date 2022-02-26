@@ -36,7 +36,21 @@ namespace MDLesson_1
 
                 Console.WriteLine(table is null ? $"К сожалению столиков нет" : $"Готово, Ваш столик номер{table.Id}");
             });
-         }  
+         }
+        public bool FreeTable(int idTable)
+        {
+           foreach (var table in _tables)
+            {
+                if(table.Id == idTable && table.State == State.Booked)
+                {
+                    table.State= State.Free;
+                    return true;
+                }
+            }
+
+           return false;
+            
+        }
 
     }
 }
