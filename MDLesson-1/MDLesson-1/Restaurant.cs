@@ -22,7 +22,7 @@ namespace MDLesson_1
             Console.WriteLine("Добрый день! Подождите секунду я подберу для Вас столик и подтвержу Вашу бронь");
             var table = _tables.FirstOrDefault(t=>t.SeatsCount>CountOfPersons&&t.State==State.Free);
             Thread.Sleep(1000 * 5);
-
+            table?.SetState(State.Booked);
             Console.WriteLine(table is null ? $"К сожалению столиков нет" : $"Готово, Ваш столик номер{table.Id}");
        }
         public void BookFreeTableAsync(int CountOfPersons)
@@ -37,19 +37,28 @@ namespace MDLesson_1
                 Console.WriteLine(table is null ? $"К сожалению столиков нет" : $"Готово, Ваш столик номер{table.Id}");
             });
          }
-        public bool FreeTable(int idTable)
+        public void FreeTable(int idTable)
         {
-           foreach (var table in _tables)
-            {
-                if(table.Id == idTable && table.State == State.Booked)
-                {
-                    table.State= State.Free;
-                    return true;
-                }
-            }
+            Console.WriteLine("Добрый день! Подождите секунду я посмотрю список и отменю бронь");
+            var table = _tables.FirstOrDefault(t => t.Id == idTable && t.State == State.Booked);
+            Thread.Sleep(1000 * 5);
+            table?.SetState(State.Free);
 
-           return false;
-            
+            Console.WriteLine(table is null ? $"Данный стол был свободен" : $"Готово,бронь стола номер-{table.Id} снята");
+
+        }
+        public void FreeTableAsync(int idTable)
+        {
+            Console.WriteLine("Добрый день! Вам придет уведомление");
+            Task.Run(async () =>
+            {
+                var table = _tables.FirstOrDefault(t => t.Id == idTable && t.State == State.Booked);
+                await Task.Delay(1000 * 5);
+                table?.SetState(State.Free);
+
+                Console.WriteLine(table is null ? $"Данный стол был свободен" : $"Готово,бронь стола номер-{table.Id} снята");
+            });
+  
         }
 
     }
