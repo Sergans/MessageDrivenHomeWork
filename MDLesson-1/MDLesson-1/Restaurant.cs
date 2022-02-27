@@ -17,13 +17,17 @@ namespace MDLesson_1
               _tables.Add(new Table(i));
             }
         }
-       public void BookFreeTable(int CountOfPersons)
+       public Table BookFreeTable(int CountOfPersons)
        {
             var table = _tables.FirstOrDefault(t=>t.SeatsCount>CountOfPersons&&t.State==State.Free);
             Thread.Sleep(1000 * 5);
-            table?.SetState(State.Booked);
+            if (table != null)
+            {
+                table?.SetState(State.Booked);
+                return table;
+            }
 
-            Console.WriteLine(table is null ? $"К сожалению столиков нет" : $"Готово, Ваш столик номер{table.Id}");
+            return null;
        }
         public void BookFreeTableAsync(int CountOfPersons)
         {
@@ -37,15 +41,18 @@ namespace MDLesson_1
                 Console.WriteLine(table is null ? $"К сожалению столиков нет" : $"Готово, Ваш столик номер{table.Id}");
             });
          }
-        public void FreeTable(int idTable)
+        public Table FreeTable(int idTable)
         {
             
             var table = _tables.FirstOrDefault(t => t.Id == idTable && t.State == State.Booked);
             Thread.Sleep(1000 * 5);
-            table?.SetState(State.Free);
-
-            Console.WriteLine(table is null ? $"Данный стол был свободен" : $"Готово,бронь стола номер-{table.Id} снята");
-
+            if (table != null)
+            {
+                table?.SetState(State.Free);
+                return table;
+            }
+            
+            return null;
         }
         public void FreeTableAsync(int idTable)
         {
