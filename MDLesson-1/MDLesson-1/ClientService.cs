@@ -9,7 +9,7 @@ namespace MDLesson_1
     public class ClientService
     {
         public Restaurant _restaurant;
-        public const string message = "УВЕДОМЛЕНИЕ";
+        public const string message = "ГОТОВО";
         
         public ClientService(Restaurant restaurant)
         {
@@ -23,8 +23,9 @@ namespace MDLesson_1
                 
                 case 1:Console.WriteLine("Введите количество человек");
                     int countPersons = int.Parse(Console.ReadLine());
-                    Console.WriteLine("Добрый день! Подождите секунду я подберу для Вас столик. Вам придет уведомление");
+                    Console.WriteLine("Добрый день! Вам придет уведомление");
                     _restaurant.BookFreeTableAsync(countPersons);
+                   
                     break;
                 case 2:
                     Console.WriteLine("Введите количество человек");

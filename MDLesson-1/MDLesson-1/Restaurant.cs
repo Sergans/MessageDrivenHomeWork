@@ -20,7 +20,7 @@ namespace MDLesson_1
        public Table BookFreeTable(int CountOfPersons)
        {
             var table = _tables.FirstOrDefault(t=>t.SeatsCount>CountOfPersons&&t.State==State.Free);
-            Thread.Sleep(1000 * 5);
+            Thread.Sleep(1000 * 10);
             if (table != null)
             {
                 table?.SetState(State.Booked);
@@ -31,15 +31,21 @@ namespace MDLesson_1
        }
         public void BookFreeTableAsync(int CountOfPersons)
         {
-           
-            Task.Run(async () =>
-            {
-                var table = _tables.FirstOrDefault(t => t.SeatsCount > CountOfPersons && t.State == State.Free);
-                await Task.Delay(1000 * 5);
-                table?.SetState(State.Booked);
+            
+                Task.Run(async () =>
+                {
+                
+                    var table = _tables.FirstOrDefault(t => t.SeatsCount > CountOfPersons && t.State == State.Free);
+                    await Task.Delay(1000 * 5);
+                    if (table != null)
+                    {
+                        table?.SetState(State.Booked);
 
-                Console.WriteLine(table is null ? $"К сожалению столиков нет" : $"Готово, Ваш столик номер{table.Id}");
-            });
+                    }
+                
+                Console.WriteLine(table is null ? $"К сожалению столиков нет" : $"УВЕДОМЛЕНИЕ, Ваш столик номер{table.Id}");
+                });
+            
          }
         public Table FreeTable(int idTable)
         {
